@@ -52,6 +52,37 @@ print("recall")
 print(confusion_matrix_2[1,1]/(confusion_matrix_2[1,1]+confusion_matrix_2[2,1]))
 
 
+#########Application of Logistic Regression to hotel Reviews
+
+# logistic regression with lasso penalty#########
+reviews.glmnet <- cv.glmnet(as.matrix(train.dtm),labels, family="binomial",type.measure="class")
+plot(reviews.glmnet)
+
+# coef(reviews.glmnet,s="lambda.1se")
+
+
+# make predictions on the test set
+reviews.logreg.pred <- predict(reviews.glmnet, newx=as.matrix(test.dtm),s="lambda.1se",type="class")
+
+# show confusion matrix
+
+
+confusion_matrix_3 <- table(reviews.logreg.pred,true_label_1)
+
+print("confusion matrix")
+print(confusion_matrix_3)
+
+print("accuracy")
+print((confusion_matrix_3[1,1]+confusion_matrix_3[2,2])/160)
+
+print("precision")
+print(confusion_matrix_3[1,1]/(confusion_matrix_3[1,1]+confusion_matrix_3[1,2]))
+
+print("recall")
+print(confusion_matrix_3[1,1]/(confusion_matrix_3[1,1]+confusion_matrix_3[2,1]))
+
+
+
 ########################################classification tree#########
 
 data.predictors <- as.matrix(train.dtm)
@@ -77,7 +108,18 @@ out_df <- data.frame(as.matrix(test.dtm), check.names = FALSE, stringsAsFactors 
 reviews.rpart.pred <- predict(reviews.rpart.pruned, newdata = out_df,type="class")
 
 #show confusion matrix
-table(reviews.rpart.pred,true_label)
+
+confusion_matrix_4 <- table(reviews.rpart.pred,true_label_1)
 
 
+print("confusion matrix")
+print(confusion_matrix_4)
 
+print("accuracy")
+print((confusion_matrix_4[1,1]+confusion_matrix_4[2,2])/160)
+
+print("precision")
+print(confusion_matrix_4[1,1]/(confusion_matrix_4[1,1]+confusion_matrix_4[1,2]))
+
+print("recall")
+print(confusion_matrix_4[1,1]/(confusion_matrix_4[1,1]+confusion_matrix_4[2,1]))
