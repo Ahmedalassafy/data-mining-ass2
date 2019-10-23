@@ -39,6 +39,7 @@ read_training_data <- function(){
   # to view a small part of the document-term matrix by using inspect(train.dtm[100:110,80:85])
   return ((train.dtm))
 }
+
 read_training_data1 <- function(){
   
   

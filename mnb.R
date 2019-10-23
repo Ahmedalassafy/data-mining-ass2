@@ -40,15 +40,13 @@ predict.mnb <-
 
 
 
-naive_bayes<-function(train.dtm,labels,test.dtm){
+naive_bayes<-function(train.dtm,labels,test.dtm,true_label){
   
   # NAIVE BAYES
   reviews.mnb<- train.mnb(train.dtm, labels)
   reviews.mnb.pred <-  predict.mnb(reviews.mnb,as.matrix(test.dtm))
   
-  x <- rep (1, 80)
-  y <- rep (0,80)
-  true_label<- c(x,y)
+
   
   print("Naive Bayes")
   
